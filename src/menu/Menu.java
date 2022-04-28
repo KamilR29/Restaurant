@@ -40,6 +40,19 @@ public class Menu {
 
 
     }
+    public void  readMenu() throws FileNotFoundException {
+
+       File file = new File("menu.txt");
+       Scanner scanner = new Scanner(file);
+
+       while (scanner.hasNext()){
+           String line = scanner.nextLine();
+           System.out.println(line);
+       }
+
+
+
+    }
 
 
 
