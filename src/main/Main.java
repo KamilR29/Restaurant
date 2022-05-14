@@ -6,15 +6,35 @@ import menu.Menu;
 
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
 
         Menu menu = new Menu();
-        //menu.createDish();
-        menu.readMenu();
+        boolean isEnd = false;
+        Scanner scanner = new Scanner(System.in);
+        while(isEnd == false) {
 
+            System.out.println("0 - Zakoncz");
+            System.out.println("1 - Dodaj danie");
+            System.out.println("2 - Poakrz menu");
+            System.out.println("3 - Skasuj z menu");
+            System.out.print("Podaj numer: ");
+            int number = scanner.nextInt();
+            switch (number){
+                
+                case 1 -> menu.createDish();
+                case 2 -> menu.readMenu();
+                case 3 -> menu.deleteFromMenu();
+                case 0 -> isEnd = true;
+
+                default -> throw new IllegalStateException("Unexpected value: " + number);
+
+            }
+
+        }
 
     }
 }

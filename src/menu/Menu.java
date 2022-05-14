@@ -1,6 +1,7 @@
 package menu;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -33,7 +34,7 @@ public class Menu {
 
         FileWriter file = new FileWriter("menu.txt", true);
         BufferedWriter bufferedWriter = new BufferedWriter(file);
-        bufferedWriter.write(dish.getNumber()+" "+dish.getName()+" "+dish.getDescription()+" "+dish.getPrice());
+        bufferedWriter.write(dish.getNumber()+", "+dish.getName()+", "+dish.getDescription()+", "+dish.getPrice());
         bufferedWriter.newLine();
         bufferedWriter.close();
 
@@ -49,6 +50,39 @@ public class Menu {
            String line = scanner.nextLine();
            System.out.println(line);
        }
+
+
+
+    }
+    public void deleteFromMenu() throws IOException {
+        File file = new File("menu.txt");
+        Scanner scanner = new Scanner(file);
+        ArrayList<Dish> list = new ArrayList();
+        while (scanner.hasNext()){
+            String line = scanner.nextLine();
+            String[] strings = line.split(", ");
+            list.add(new Dish(Integer.parseInt(strings[0]),strings[1],strings[2],Integer.parseInt(strings[3])));
+
+        }
+        System.out.println("Podaj ID dania do skasowania: ");
+        Scanner scanner1 = new Scanner(System.in);
+        int delete = scanner1.nextInt();
+
+
+        PrintWriter printWriter = new PrintWriter("menu.txt");
+        printWriter.print("");
+        printWriter.close();
+        FileWriter file1 = new FileWriter("menu.txt", true);
+        BufferedWriter bufferedWriter = new BufferedWriter(file1);
+
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getNumber() != delete) {
+                bufferedWriter.write(list.get(i).getNumber() + ", " + list.get(i).getName() + ", " + list.get(i).getDescription() + ", " + list.get(i).getPrice());
+                bufferedWriter.newLine();
+            }
+        }
+        bufferedWriter.close();
+
 
 
 
