@@ -21,6 +21,7 @@ public class Main {
             System.out.println("1 - Dodaj danie");
             System.out.println("2 - Poakrz menu");
             System.out.println("3 - Skasuj z menu");
+            System.out.println("4 - Zmien dostepnsc");
             System.out.print("Podaj numer: ");
             int number = scanner.nextInt();
             switch (number){
@@ -28,6 +29,7 @@ public class Main {
                 case 1 -> menu.createDish();
                 case 2 -> menu.readMenu();
                 case 3 -> menu.deleteFromMenu();
+                case 4 -> menu.changeAvailable();
                 case 0 -> isEnd = true;
 
                 default -> throw new IllegalStateException("Unexpected value: " + number);
