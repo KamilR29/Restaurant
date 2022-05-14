@@ -15,7 +15,7 @@ public class Order {
     public int setNumber(){
 
         Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HHmm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HHmmss");
         String time =  dateFormat.format(date);
         int code = Integer.parseInt(time);
         return code;
