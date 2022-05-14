@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Menu {
+public class Menu implements MenuInterface{
 
 
     public void createDish() throws IOException {

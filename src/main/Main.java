@@ -3,6 +3,7 @@ package main;
 
 import menu.Dish;
 import menu.Menu;
+import menu.MenuInterface;
 
 
 import java.io.IOException;
@@ -15,6 +16,8 @@ public class Main {
         Menu menu = new Menu();
         boolean isEnd = false;
         Scanner scanner = new Scanner(System.in);
+
+
         while(isEnd == false) {
 
             System.out.println("0 - Zakoncz");
