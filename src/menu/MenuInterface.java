@@ -7,7 +7,7 @@ public interface MenuInterface {
 
 
     default void createDish() throws IOException{}
-    default void  readMenu() throws FileNotFoundException {}
+    default String readMenu() throws FileNotFoundException {return "";}
     default void deleteFromMenu() throws IOException {}
     default void changeAvailable() throws IOException{}
 

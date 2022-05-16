@@ -2,7 +2,6 @@ package menu;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Menu implements MenuInterface{
@@ -45,16 +44,19 @@ public class Menu implements MenuInterface{
 
 
     }
-    public void  readMenu() throws FileNotFoundException {
+    public String readMenu() throws FileNotFoundException {
 
+        String all = "";
        File file = new File("menu.txt");
        Scanner scanner = new Scanner(file);
 
        while (scanner.hasNext()){
            String line = scanner.nextLine();
-           System.out.println(line);
+           all += line+"\n";
        }
+        System.out.println(all);
 
+       return all;
 
 
     }
