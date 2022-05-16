@@ -11,8 +11,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -173,6 +175,7 @@ public class Main {
 
 
 
+
                                                                 }
                                                             }
                                                     );
@@ -239,6 +242,8 @@ public class Main {
                                                                     }
 
                                                                     window.dispose();
+
+
 
 
 
@@ -356,6 +361,100 @@ public class Main {
                                     JFrame window = new JFrame();
                                     window.setSize(800, 600);
                                     window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                    window.setLayout(new GridLayout(1,2));
+
+                                    JPanel panel1 = new JPanel();
+                                    JPanel panel2 = new JPanel();
+
+                                    window.add(panel1);
+                                    window.add(panel2);
+
+
+//                                    JList list = new JList();
+//                                    DefaultListModel<String> model = new DefaultListModel<>();
+//
+//                                    File file = new File("menu.txt");
+//                                    Scanner scanner = null;
+//                                    try {
+//                                        scanner = new Scanner(file);
+//                                    } catch (FileNotFoundException ex) {
+//                                        ex.printStackTrace();
+//                                    }
+//                                    ArrayList<Dish> lista = new ArrayList();
+//                                    while (scanner.hasNext()){
+//                                        String line = scanner.nextLine();
+//                                        String[] strings = line.split(", ");
+//                                        lista.add(new Dish(Integer.parseInt(strings[0]),strings[1],strings[2],Integer.parseInt(strings[3]),strings[4]));
+//                                        if(strings[4].equals("yes")){
+//                                            model.addElement(line);
+//                                        }
+//
+//                                    }
+//                                    list.setModel(model);
+//                                    panel1.add(list);
+
+
+                                    panel1.setLayout(new GridLayout(6,1));
+
+                                    JTextField number = new JTextField(5);
+                                    JTextField quantity = new JTextField();
+
+                                    panel1.add(number);
+                                    panel1.add(quantity);
+
+
+
+                                    JButton buttonAdd = new JButton("ADD TO ORDER");
+                                    JButton buttonIn = new JButton("ORDER ON SITE");
+                                    JButton buttonOut = new JButton("ORDER TAKE-OUT");
+
+                                    panel1.add(buttonAdd);
+                                    panel1.add(buttonIn);
+                                    panel1.add(buttonOut);
+
+                                    Order order = new Order();
+                                    int orderNumber = order.setNumber();
+
+                                    ArrayList<Order> orderList = new ArrayList();
+
+                                    buttonAdd.addActionListener(
+                                            new ActionListener() {
+                                                @Override
+                                                public void actionPerformed(ActionEvent e) {
+
+
+
+
+
+
+
+
+                                                }
+                                            }
+                                    );
+
+
+                                    MenuInterface menuInterface = new Menu();
+                                    String line = null;
+                                    try {
+                                        line = menuInterface.readMenu();
+                                    } catch (FileNotFoundException ex) {
+                                        ex.printStackTrace();
+                                    }
+
+                                    JTextArea textArea = new JTextArea();
+                                    textArea.append(line);
+                                    textArea.setEditable(false);
+                                    panel2.add(textArea);
+
+
+
+
+
+
+
+
+
                                     window.setVisible(true);
 
                                 }

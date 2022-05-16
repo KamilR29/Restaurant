@@ -8,6 +8,7 @@ public class OrderDescription {
     private int orderNumber;
     private ArrayList<Dish> dishes;
     private boolean inOut;
+    private int quantity;
 
     public OrderDescription(int orderNumber, ArrayList<Dish> dishes, boolean inOut) {
         this.orderNumber = orderNumber;

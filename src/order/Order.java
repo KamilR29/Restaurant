@@ -1,6 +1,9 @@
 package order;
 
 
+import menu.Dish;
+
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,6 +57,17 @@ public class Order {
         }
         return io;
     }
+//    public void addToOrder( ArrayList<Dish>) throws IOException {
+//
+//        FileWriter file = new FileWriter("menu.txt", true);
+//        BufferedWriter bufferedWriter = new BufferedWriter(file);
+//        bufferedWriter.write(dish.getNumber()+", "+dish.getName()+", "+dish.getDescription()+", "+dish.getPrice()+", "+dish.isAvailable());
+//        bufferedWriter.newLine();
+//        bufferedWriter.close();
+//
+//
+//
+//    }
 
 
 
