@@ -6,9 +6,9 @@ public class Dish {
     private String name;
     private String description;
     private int price;
-    private boolean available;
+    private String available;
 
-    public Dish(int number, String name, String description, int price, boolean available) {
+    public Dish(int number, String name, String description, int price, String available) {
         this.number = number;
         this.name = name;
         this.description = description;
@@ -32,7 +32,7 @@ public class Dish {
         return price;
     }
 
-    public boolean isAvailable() {
+    public String isAvailable() {
         return available;
     }
 }

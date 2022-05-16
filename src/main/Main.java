@@ -115,8 +115,8 @@ public class Main {
 
                                     JButton button1 = new JButton("Add dish");
                                     JButton button2 = new JButton("Delete dish");
-                                    JButton button3 = new JButton("Show menu");
-                                    JButton button4 = new JButton("Change available");
+                                    JButton button3 = new JButton("Change available");
+                                    JButton button4 = new JButton("CLOSE");
                                     window.add(button1);
                                     window.add(button2);
                                     window.add(button3);
@@ -160,7 +160,7 @@ public class Main {
                                                                     String na = name.getText();
                                                                     String des = description.getText();
                                                                     int pr = Integer.parseInt(price.getText());
-                                                                    boolean av = Boolean.getBoolean(available.getText());
+                                                                    String av = available.getText();
 
                                                                     Menu menu = new Menu();
                                                                     try {
@@ -205,6 +205,64 @@ public class Main {
                                                     JFrame window = new JFrame();
                                                     window.setSize(800, 600);
                                                     window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+
+
+                                                    window.setLayout(new GridLayout(1,2));
+                                                    JPanel panel1 = new JPanel();
+                                                    JPanel panel2 = new JPanel();
+                                                    window.add(panel1);
+                                                    window.add(panel2);
+                                                    panel1.setLayout(new GridLayout(6,1));
+
+                                                    JTextField number = new JTextField(5);
+
+                                                    panel1.add(number);
+
+
+
+                                                    JButton buttonAdd = new JButton("DELETE");
+                                                    panel1.add(buttonAdd);
+
+                                                    buttonAdd.addActionListener(
+                                                            new ActionListener() {
+                                                                @Override
+                                                                public void actionPerformed(ActionEvent e) {
+                                                                    int num = Integer.parseInt(number.getText());
+
+
+                                                                    Menu menu = new Menu();
+                                                                    try {
+                                                                        menu.deleteFromMenu(num);
+                                                                    } catch (IOException ex) {
+                                                                        ex.printStackTrace();
+                                                                    }
+
+                                                                    window.dispose();
+
+
+
+
+                                                                }
+                                                            }
+                                                    );
+
+
+                                                    MenuInterface menuInterface = new Menu();
+                                                    String line = null;
+                                                    try {
+                                                        line = menuInterface.readMenu();
+                                                    } catch (FileNotFoundException ex) {
+                                                        ex.printStackTrace();
+                                                    }
+
+                                                    JTextArea textArea = new JTextArea();
+                                                    textArea.append(line);
+                                                    textArea.setEditable(false);
+                                                    panel2.add(textArea);
+
+
+
                                                     window.setVisible(true);
 
                                                 }
@@ -218,6 +276,59 @@ public class Main {
                                                     window.setSize(800, 600);
                                                     window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+                                                    window.setLayout(new GridLayout(1,2));
+                                                    JPanel panel1 = new JPanel();
+                                                    JPanel panel2 = new JPanel();
+                                                    window.add(panel1);
+                                                    window.add(panel2);
+                                                    panel1.setLayout(new GridLayout(6,1));
+
+                                                    JTextField number = new JTextField(5);
+
+                                                    panel1.add(number);
+
+
+
+                                                    JButton buttonAdd = new JButton("CHANGE");
+                                                    panel1.add(buttonAdd);
+
+                                                    buttonAdd.addActionListener(
+                                                            new ActionListener() {
+                                                                @Override
+                                                                public void actionPerformed(ActionEvent e) {
+                                                                    int num = Integer.parseInt(number.getText());
+
+                                                                    Menu menu = new Menu();
+                                                                    try {
+                                                                        menu.changeAvailable(num);
+                                                                    } catch (IOException ex) {
+                                                                        ex.printStackTrace();
+                                                                    }
+
+
+                                                                    window.dispose();
+
+
+
+
+                                                                }
+                                                            }
+                                                    );
+
+
+                                                    MenuInterface menuInterface = new Menu();
+                                                    String line = null;
+                                                    try {
+                                                        line = menuInterface.readMenu();
+                                                    } catch (FileNotFoundException ex) {
+                                                        ex.printStackTrace();
+                                                    }
+
+                                                    JTextArea textArea = new JTextArea();
+                                                    textArea.append(line);
+                                                    textArea.setEditable(false);
+                                                    panel2.add(textArea);
+
 
                                                     window.setVisible(true);
 
@@ -228,10 +339,7 @@ public class Main {
                                             new ActionListener() {
                                                 @Override
                                                 public void actionPerformed(ActionEvent e) {
-                                                    JFrame window = new JFrame();
-                                                    window.setSize(800, 600);
-                                                    window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                                                    window.setVisible(true);
+                                                    window.dispose();
 
                                                 }
                                             }

@@ -12,22 +12,22 @@ public class Menu implements MenuInterface{
         String name;
         String description;
         int price;
-        boolean available;
+        String available;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Podaj nazwe dania: ");
-        name = scanner.nextLine();
-        System.out.print("Podaj opis dania: ");
-        description = scanner.nextLine();
-        System.out.print("Podaj cene dania: ");
-        price = scanner.nextInt();
-        System.out.print("Podaj ID dania: ");
-        id = scanner.nextInt();
-        System.out.print("Podaj dostepnosc: ");
-        available = scanner.nextBoolean();
+//        System.out.print("Podaj nazwe dania: ");
+//        name = scanner.nextLine();
+//        System.out.print("Podaj opis dania: ");
+//        description = scanner.nextLine();
+//        System.out.print("Podaj cene dania: ");
+//        price = scanner.nextInt();
+//        System.out.print("Podaj ID dania: ");
+//        id = scanner.nextInt();
+//        System.out.print("Podaj dostepnosc: ");
+//        available = scanner.nextBoolean();
 
-        Dish dish = new Dish(id,name,description,price,available);
-        addToMenu(dish);
+//        Dish dish = new Dish(id,name,description,price,available);
+//        addToMenu(dish);
 
 
     }
@@ -60,19 +60,19 @@ public class Menu implements MenuInterface{
 
 
     }
-    public void deleteFromMenu() throws IOException {
+    public void deleteFromMenu(int number) throws IOException {
         File file = new File("menu.txt");
         Scanner scanner = new Scanner(file);
         ArrayList<Dish> list = new ArrayList();
         while (scanner.hasNext()){
             String line = scanner.nextLine();
             String[] strings = line.split(", ");
-            list.add(new Dish(Integer.parseInt(strings[0]),strings[1],strings[2],Integer.parseInt(strings[3]),Boolean.getBoolean(strings[4])));
+            list.add(new Dish(Integer.parseInt(strings[0]),strings[1],strings[2],Integer.parseInt(strings[3]),strings[4]));
 
         }
-        System.out.println("Podaj ID dania do skasowania: ");
-        Scanner scanner1 = new Scanner(System.in);
-        int delete = scanner1.nextInt();
+        //System.out.println("Podaj ID dania do skasowania: ");
+       // Scanner scanner1 = new Scanner(System.in);
+        //int delete = scanner1.nextInt();
 
 
         PrintWriter printWriter = new PrintWriter("menu.txt");
@@ -82,7 +82,7 @@ public class Menu implements MenuInterface{
         BufferedWriter bufferedWriter = new BufferedWriter(file1);
 
         for (int i = 0; i < list.size(); i++) {
-            if(list.get(i).getNumber() != delete) {
+            if(list.get(i).getNumber() != number) {
                 bufferedWriter.write(list.get(i).getNumber() + ", " + list.get(i).getName() + ", " + list.get(i).getDescription() + ", " + list.get(i).getPrice()+", "+list.get(i).isAvailable());
                 bufferedWriter.newLine();
             }
@@ -90,19 +90,19 @@ public class Menu implements MenuInterface{
         bufferedWriter.close();
 
     }
-    public void changeAvailable() throws IOException{
+    public void changeAvailable(int number) throws IOException{
         File file = new File("menu.txt");
         Scanner scanner = new Scanner(file);
         ArrayList<Dish> list = new ArrayList();
         while (scanner.hasNext()){
             String line = scanner.nextLine();
             String[] strings = line.split(", ");
-            list.add(new Dish(Integer.parseInt(strings[0]),strings[1],strings[2],Integer.parseInt(strings[3]),Boolean.getBoolean(strings[4])));
+            list.add(new Dish(Integer.parseInt(strings[0]),strings[1],strings[2],Integer.parseInt(strings[3]),strings[4]));
 
         }
-        System.out.println("Podaj ID dania do zmiany dostepnosci: ");
-        Scanner scanner1 = new Scanner(System.in);
-        int delete = scanner1.nextInt();
+//        System.out.println("Podaj ID dania do zmiany dostepnosci: ");
+//        Scanner scanner1 = new Scanner(System.in);
+//        int delete = scanner1.nextInt();
 
 
         PrintWriter printWriter = new PrintWriter("menu.txt");
@@ -112,20 +112,20 @@ public class Menu implements MenuInterface{
         BufferedWriter bufferedWriter = new BufferedWriter(file1);
 
         for (int i = 0; i < list.size(); i++) {
-            if(list.get(i).getNumber() != delete) {
+            if(list.get(i).getNumber() != number) {
                 bufferedWriter.write(list.get(i).getNumber() + ", " + list.get(i).getName() + ", " + list.get(i).getDescription() + ", " + list.get(i).getPrice()+", "+list.get(i).isAvailable());
                 bufferedWriter.newLine();
-            }else if (list.get(i).getNumber() == delete){
+            }else if (list.get(i).getNumber() == number){
 
-                if(list.get(i).isAvailable()==true){
+                if(list.get(i).isAvailable().equals("yes")){
 
-                    bufferedWriter.write(list.get(i).getNumber() + ", " + list.get(i).getName() + ", " + list.get(i).getDescription() + ", " + list.get(i).getPrice()+", "+ false);
+                    bufferedWriter.write(list.get(i).getNumber() + ", " + list.get(i).getName() + ", " + list.get(i).getDescription() + ", " + list.get(i).getPrice()+", no");
                     bufferedWriter.newLine();
 
 
-                }else if (list.get(i).isAvailable()==false){
+                }else if (list.get(i).isAvailable().equals("no")){
 
-                    bufferedWriter.write(list.get(i).getNumber() + ", " + list.get(i).getName() + ", " + list.get(i).getDescription() + ", " + list.get(i).getPrice()+", "+ true);
+                    bufferedWriter.write(list.get(i).getNumber() + ", " + list.get(i).getName() + ", " + list.get(i).getDescription() + ", " + list.get(i).getPrice()+", yes");
                     bufferedWriter.newLine();
 
 
