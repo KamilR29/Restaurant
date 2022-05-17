@@ -1,10 +1,14 @@
 package main;
 
 
+import com.sun.jdi.Value;
+import kitchen.Kitchen;
 import menu.Dish;
 import menu.Menu;
 import menu.MenuInterface;
 import order.Order;
+import order.OrderDescription;
+import summary.Summary;
 
 
 import javax.swing.*;
@@ -14,13 +18,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
 //        Menu menu = new Menu();
 //        boolean isEnd = false;
@@ -55,6 +57,15 @@ public class Main {
 //        order.showNumber();
 //        boolean i = order.inOut();
 //        System.out.println(i);
+
+
+        Order order = new Order();
+        Summary summary = new Summary();
+        Menu menu = new Menu();
+        HashMap<Integer,Integer> dishMap = new HashMap<Integer,Integer>();
+        int suma;
+
+
         SwingUtilities.invokeLater(
                 ()-> {
 
@@ -70,6 +81,8 @@ public class Main {
                     JButton button4 = new JButton("Waiting orders");
                     JButton button5 = new JButton("Summary");
                     JButton button6 = new JButton("Workers");
+
+
                     window.add(button1);
                     window.add(button2);
                     window.add(button3);
@@ -204,7 +217,7 @@ public class Main {
                                     button2.addActionListener(
                                             new ActionListener() {
                                                 @Override
-                                                public void actionPerformed(ActionEvent e) {
+                                                public void actionPerformed(ActionEvent f) {
                                                     JFrame window = new JFrame();
                                                     window.setSize(800, 600);
                                                     window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -241,7 +254,13 @@ public class Main {
                                                                         ex.printStackTrace();
                                                                     }
 
+
                                                                     window.dispose();
+
+
+
+
+
 
 
 
@@ -277,15 +296,15 @@ public class Main {
                                             new ActionListener() {
                                                 @Override
                                                 public void actionPerformed(ActionEvent e) {
-                                                    JFrame window = new JFrame();
-                                                    window.setSize(800, 600);
-                                                    window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                                    JFrame window1 = new JFrame();
+                                                    window1.setSize(800, 600);
+                                                    window1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-                                                    window.setLayout(new GridLayout(1,2));
+                                                    window1.setLayout(new GridLayout(1,2));
                                                     JPanel panel1 = new JPanel();
                                                     JPanel panel2 = new JPanel();
-                                                    window.add(panel1);
-                                                    window.add(panel2);
+                                                    window1.add(panel1);
+                                                    window1.add(panel2);
                                                     panel1.setLayout(new GridLayout(6,1));
 
                                                     JTextField number = new JTextField(5);
@@ -314,8 +333,6 @@ public class Main {
                                                                     window.dispose();
 
 
-
-
                                                                 }
                                                             }
                                                     );
@@ -335,7 +352,7 @@ public class Main {
                                                     panel2.add(textArea);
 
 
-                                                    window.setVisible(true);
+                                                    window1.setVisible(true);
 
                                                 }
                                             }
@@ -412,8 +429,10 @@ public class Main {
                                     panel1.add(buttonIn);
                                     panel1.add(buttonOut);
 
-                                    Order order = new Order();
-                                    int orderNumber = order.setNumber();
+
+
+
+
 
                                     ArrayList<Order> orderList = new ArrayList();
 
@@ -421,13 +440,70 @@ public class Main {
                                             new ActionListener() {
                                                 @Override
                                                 public void actionPerformed(ActionEvent e) {
+                                                    int sum = 0;
 
 
 
+                                                    int n  = Integer.parseInt(number.getText());
+                                                    int q = Integer.parseInt(quantity.getText());
+                                                    ArrayList<Dish> list = new ArrayList<>();
+                                                    try {
+                                                        list = menu.readMoreMenu();
+                                                    } catch (IOException ex) {
+                                                        ex.printStackTrace();
+                                                    }
+
+                                                    for (int i = 0; i < list.size(); i++) {
+                                                        if(list.get(i).getNumber() == n){
+                                                            sum += list.get(i).getPrice();
+                                                        }
+
+                                                    }
+
+                                                    dishMap.put(n,q);
+                                                    System.out.println(sum);
 
 
 
+                                                }
+                                            }
+                                    );
+                                    buttonIn.addActionListener(
+                                            new ActionListener() {
+                                                @Override
+                                                public void actionPerformed(ActionEvent e) {
 
+                                                    int orderNumber = order.setNumber();
+                                                    try {
+                                                        order.addToOrder(orderNumber,dishMap,1);
+                                                    } catch (IOException ex) {
+                                                        ex.printStackTrace();
+                                                    }
+
+
+
+                                                    order.orderMainList.add(new OrderDescription(orderNumber,dishMap,1));
+
+                                                    System.out.println(order.orderMainList);
+
+                                                }
+                                            }
+                                    );
+                                    buttonOut.addActionListener(
+                                            new ActionListener() {
+                                                @Override
+                                                public void actionPerformed(ActionEvent e) {
+
+                                                    int orderNumber = order.setNumber();
+                                                    try {
+                                                        order.addToOrder(orderNumber,dishMap,0);
+                                                    } catch (IOException ex) {
+                                                        ex.printStackTrace();
+                                                    }
+                                                    order.orderMainList.add(new OrderDescription(orderNumber,dishMap,0));
+
+
+                                                    System.out.println(order.orderMainList);
 
                                                 }
                                             }
@@ -467,6 +543,22 @@ public class Main {
                                     JFrame window = new JFrame();
                                     window.setSize(800, 600);
                                     window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+
+                                    Order order = new Order();
+                                    String line = null;
+                                    try {
+                                        line = order.readOrder();
+                                    } catch (FileNotFoundException ex) {
+                                        ex.printStackTrace();
+                                    }
+
+                                    JTextArea textArea = new JTextArea();
+                                    textArea.append(line);
+                                    textArea.setEditable(false);
+                                    window.add(textArea);
+
+
                                     window.setVisible(true);
 
                                 }
@@ -479,6 +571,22 @@ public class Main {
                                     JFrame window = new JFrame();
                                     window.setSize(800, 600);
                                     window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                                    Summary summary = new Summary();
+                                    int line = 0;
+                                    try {
+                                        line = summary.sum();
+                                    } catch (IOException ex) {
+                                        ex.printStackTrace();
+                                    }
+
+                                    JTextArea textArea = new JTextArea();
+                                    textArea.append(String.valueOf(line));
+                                    textArea.setEditable(false);
+                                    window.add(textArea);
+
+
+
                                     window.setVisible(true);
 
                                 }
@@ -501,5 +609,10 @@ public class Main {
                     window.setVisible(true);
                 }
         );
+
+        Kitchen kitchen = new Kitchen(order.orderMainList);
+        kitchen.run();
+
     }
+
 }

@@ -140,7 +140,19 @@ public class Menu implements MenuInterface{
 
     }
 
+    public ArrayList<Dish> readMoreMenu() throws IOException {
+        File file = new File("menu.txt");
+        Scanner scanner = new Scanner(file);
+        ArrayList<Dish> list = new ArrayList();
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            String[] strings = line.split(", ");
+            list.add(new Dish(Integer.parseInt(strings[0]), strings[1], strings[2], Integer.parseInt(strings[3]), strings[4]));
 
+        }
+        return list;
+
+    }
 
 
 

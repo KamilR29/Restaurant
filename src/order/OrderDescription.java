@@ -1,42 +1,35 @@
 package order;
 
-import menu.Dish;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class OrderDescription {
 
     private int orderNumber;
-    private ArrayList<Dish> dishes;
-    private boolean inOut;
-    private int quantity;
+    private HashMap<Integer,Integer> dishMap;
+    private int inOut;
+    //private int total;
 
-    public OrderDescription(int orderNumber, ArrayList<Dish> dishes, boolean inOut) {
+
+    public OrderDescription(int orderNumber, HashMap<Integer,Integer> dishMap, int inOut ) {
         this.orderNumber = orderNumber;
-        this.dishes = dishes;
+        this.dishMap = dishMap;
         this.inOut = inOut;
+        //this.total = total;
     }
 
     public int getOrderNumber() {
         return orderNumber;
     }
 
-    public ArrayList<Dish> getDishes() {
-        return dishes;
+    public HashMap<Integer,Integer>  getDishes() {
+        return dishMap;
     }
 
-    public boolean isInOut() {
+    public int getInOut() {
         return inOut;
     }
 
-    public void setOrderNumber(int orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
-    public void setDishes(ArrayList<Dish> dishes) {
-        this.dishes = dishes;
-    }
-
-    public void setInOut(boolean inOut) {
-        this.inOut = inOut;
-    }
+//    public int getTotal() {
+//        return total;
+//    }
 }
