@@ -60,10 +60,12 @@ public class Main {
 
 
         Order order = new Order();
+        OrderDescription orderDescription = new OrderDescription();
         Summary summary = new Summary();
         Menu menu = new Menu();
         HashMap<Integer,Integer> dishMap = new HashMap<Integer,Integer>();
-        int suma;
+        ArrayList<OrderDescription> summaryList = new ArrayList<>();
+
 
 
         SwingUtilities.invokeLater(
@@ -81,6 +83,14 @@ public class Main {
                     JButton button4 = new JButton("Waiting orders");
                     JButton button5 = new JButton("Summary");
                     JButton button6 = new JButton("Workers");
+
+                    Color color = new Color(237, 140, 222);
+                    button1.setBackground(color);
+                    button2.setBackground(color);
+                    button3.setBackground(color);
+                    button4.setBackground(color);
+                    button5.setBackground(color);
+                    button6.setBackground(color);
 
 
                     window.add(button1);
@@ -446,19 +456,9 @@ public class Main {
 
                                                     int n  = Integer.parseInt(number.getText());
                                                     int q = Integer.parseInt(quantity.getText());
-                                                    ArrayList<Dish> list = new ArrayList<>();
-                                                    try {
-                                                        list = menu.readMoreMenu();
-                                                    } catch (IOException ex) {
-                                                        ex.printStackTrace();
-                                                    }
+                                                     orderDescription.setTotal(order.total(n));
 
-                                                    for (int i = 0; i < list.size(); i++) {
-                                                        if(list.get(i).getNumber() == n){
-                                                            sum += list.get(i).getPrice();
-                                                        }
 
-                                                    }
 
                                                     dishMap.put(n,q);
                                                     System.out.println(sum);
@@ -482,7 +482,8 @@ public class Main {
 
 
 
-                                                    order.orderMainList.add(new OrderDescription(orderNumber,dishMap,1));
+                                                    order.orderMainList.add(new OrderDescription(orderNumber,dishMap,1,orderDescription.getTotal()));
+                                                    summaryList.add(new OrderDescription(orderNumber,dishMap,1,orderDescription.getTotal()));
 
                                                     System.out.println(order.orderMainList);
 
@@ -500,7 +501,8 @@ public class Main {
                                                     } catch (IOException ex) {
                                                         ex.printStackTrace();
                                                     }
-                                                    order.orderMainList.add(new OrderDescription(orderNumber,dishMap,0));
+                                                    order.orderMainList.add(new OrderDescription(orderNumber,dishMap,0,orderDescription.getTotal()));
+                                                    summaryList.add(new OrderDescription(orderNumber,dishMap,1,orderDescription.getTotal()));
 
 
                                                     System.out.println(order.orderMainList);
@@ -575,7 +577,7 @@ public class Main {
                                     Summary summary = new Summary();
                                     int line = 0;
                                     try {
-                                        line = summary.sum();
+                                        line = summary.sum(summaryList);
                                     } catch (IOException ex) {
                                         ex.printStackTrace();
                                     }

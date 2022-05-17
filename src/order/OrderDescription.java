@@ -7,14 +7,18 @@ public class OrderDescription {
     private int orderNumber;
     private HashMap<Integer,Integer> dishMap;
     private int inOut;
-    //private int total;
+    private int total;
 
 
-    public OrderDescription(int orderNumber, HashMap<Integer,Integer> dishMap, int inOut ) {
+    public OrderDescription(int orderNumber, HashMap<Integer,Integer> dishMap, int inOut, int total ) {
         this.orderNumber = orderNumber;
         this.dishMap = dishMap;
         this.inOut = inOut;
-        //this.total = total;
+        this.total = total;
+    }
+
+    public OrderDescription() {
+
     }
 
     public int getOrderNumber() {
@@ -29,7 +33,11 @@ public class OrderDescription {
         return inOut;
     }
 
-//    public int getTotal() {
-//        return total;
-//    }
+    public int getTotal() {
+       return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
 }

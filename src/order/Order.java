@@ -1,6 +1,9 @@
 package order;
 
 
+import menu.Dish;
+import menu.Menu;
+
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -9,6 +12,7 @@ public class Order {
 
 
      public  ArrayList<OrderDescription> orderMainList = new ArrayList<>();
+     Menu menu = new Menu();
 
 
     public int setNumber(){
@@ -96,7 +100,7 @@ public class Order {
 
             }
 
-            list.add(new OrderDescription(Integer.parseInt(strings[0]), map, Integer.parseInt(strings[2])));
+            //list.add(new OrderDescription(Integer.parseInt(strings[0]), map, Integer.parseInt(strings[2])));
 
         }
         //System.out.println("Podaj ID dania do skasowania: ");
@@ -153,6 +157,26 @@ public class Order {
 
 
 
+
+    }
+    public int total(int n){
+        int sum = 0;
+
+        ArrayList<Dish> list = new ArrayList<>();
+        try {
+            list = menu.readMoreMenu();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getNumber() == n){
+                sum += list.get(i).getPrice();
+            }
+
+        }
+
+        return sum;
 
     }
 
