@@ -8,7 +8,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class Order {
+public class Order  {
 
 
      public  ArrayList<OrderDescription> orderMainList = new ArrayList<>();
@@ -159,7 +159,8 @@ public class Order {
 
 
     }
-    public int total(int n){
+    public int total(ArrayList summaryList,ArrayList quatityList){
+
         int sum = 0;
 
         ArrayList<Dish> list = new ArrayList<>();
@@ -168,12 +169,19 @@ public class Order {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+       // System.out.println(list.size());
+       // System.out.println(summaryList.size());
+        for (int i = 0; i <summaryList.size() ; i++) {
+            for (int j = 0; j < list.size(); j++) {
+                if (list.get(j).getNumber() == Integer.parseInt(String.valueOf(summaryList.get(i)))) {
+                    sum += (list.get(j).getPrice()*Integer.parseInt(String.valueOf(quatityList.get(i))));
+                    System.out.println(list.get(j).getNumber());
+                    System.out.println(summaryList.get(i));
 
-        for (int i = 0; i < list.size(); i++) {
-            if(list.get(i).getNumber() == n){
-                sum += list.get(i).getPrice();
+                    //System.out.println(sum);
+                }
+
             }
-
         }
 
         return sum;
