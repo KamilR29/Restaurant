@@ -108,13 +108,13 @@ public class Main {
                                 window13.setLayout(new GridLayout(2, 2));
 
                                 JButton buttonAddDish = new JButton("Add dish");
-                                JButton button21 = new JButton("Delete dish");
-                                JButton button31 = new JButton("Change available");
-                                JButton button41 = new JButton("CLOSE");
+                                JButton buttonDeleteDish = new JButton("Delete dish");
+                                JButton buttonChangeAvailable = new JButton("Change available");
+                                JButton buttonCloseMenu = new JButton("CLOSE");
                                 window13.add(buttonAddDish);
-                                window13.add(button21);
-                                window13.add(button31);
-                                window13.add(button41);
+                                window13.add(buttonDeleteDish);
+                                window13.add(buttonChangeAvailable);
+                                window13.add(buttonCloseMenu);
 
                                 buttonAddDish.addActionListener(
                                         e1 -> {
@@ -160,13 +160,8 @@ public class Main {
                                                         }
                                                         windowAddDish.dispose();
 
-
-
-
-
                                                     }
                                             );
-
 
                                             MenuInterface menuInterface = new Menu();
                                             String line = null;
@@ -175,415 +170,291 @@ public class Main {
                                             } catch (FileNotFoundException ex) {
                                                 ex.printStackTrace();
                                             }
-
                                             JTextArea textArea = new JTextArea();
                                             textArea.append(line);
                                             textArea.setEditable(false);
                                             panel2.add(textArea);
 
-
-
                                             windowAddDish.setVisible(true);
-
                                         }
                                 );
-                                button21.addActionListener(
-                                        new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent f) {
-                                                JFrame window13 = new JFrame();
-                                                window13.setSize(800, 600);
-                                                window13.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 
+                                buttonDeleteDish.addActionListener(
+                                        f -> {
+                                            JFrame windowDeleteDish = new JFrame();
+                                            windowDeleteDish.setSize(800, 600);
+                                            windowDeleteDish.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-                                                window13.setLayout(new GridLayout(1,2));
-                                                JPanel panel1 = new JPanel();
-                                                JPanel panel2 = new JPanel();
-                                                window13.add(panel1);
-                                                window13.add(panel2);
-                                                panel1.setLayout(new GridLayout(6,1));
+                                            windowDeleteDish.setLayout(new GridLayout(1,2));
+                                            JPanel panel1 = new JPanel();
+                                            JPanel panel2 = new JPanel();
+                                            windowDeleteDish.add(panel1);
+                                            windowDeleteDish.add(panel2);
+                                            panel1.setLayout(new GridLayout(6,1));
 
-                                                JTextField number = new JTextField(5);
-
-                                                panel1.add(number);
-
-
-
-                                                JButton buttonAdd = new JButton("DELETE");
-                                                panel1.add(buttonAdd);
-
-                                                buttonAdd.addActionListener(
-                                                        new ActionListener() {
-                                                            @Override
-                                                            public void actionPerformed(ActionEvent e) {
-                                                                int num = Integer.parseInt(number.getText());
+                                            JTextField number = new JTextField(5);
+                                            panel1.add(number);
+                                            JButton buttonAdd = new JButton("DELETE");
+                                            panel1.add(buttonAdd);
 
 
-                                                                Menu menu1 = new Menu();
-                                                                try {
-                                                                    menu1.deleteFromMenu(num);
-                                                                } catch (IOException ex) {
-                                                                    ex.printStackTrace();
-                                                                }
+                                            buttonAdd.addActionListener(
+                                                    e12 -> {
+                                                        int num = Integer.parseInt(number.getText());
 
-
-                                                                window13.dispose();
-
-
-
-
-
-
-
-
-
-
-
-                                                            }
+                                                        Menu menu1 = new Menu();
+                                                        try {
+                                                            menu1.deleteFromMenu(num);
+                                                        } catch (IOException ex) {
+                                                            ex.printStackTrace();
                                                         }
-                                                );
 
+                                                        windowDeleteDish.dispose();
 
-                                                MenuInterface menuInterface = new Menu();
-                                                String line = null;
-                                                try {
-                                                    line = menuInterface.readMenu();
-                                                } catch (FileNotFoundException ex) {
-                                                    ex.printStackTrace();
-                                                }
+                                                    }
+                                            );
 
-                                                JTextArea textArea = new JTextArea();
-                                                textArea.append(line);
-                                                textArea.setEditable(false);
-                                                panel2.add(textArea);
-
-
-
-                                                window13.setVisible(true);
-
+                                            MenuInterface menuInterface = new Menu();
+                                            String line = null;
+                                            try {
+                                                line = menuInterface.readMenu();
+                                            } catch (FileNotFoundException ex) {
+                                                ex.printStackTrace();
                                             }
+                                            JTextArea textArea = new JTextArea();
+                                            textArea.append(line);
+                                            textArea.setEditable(false);
+                                            panel2.add(textArea);
+
+                                            windowDeleteDish.setVisible(true);
+
                                         }
                                 );
-                                button31.addActionListener(
-                                        new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                JFrame window1 = new JFrame();
-                                                window1.setSize(800, 600);
-                                                window1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                buttonChangeAvailable.addActionListener(
+                                        e13 -> {
+                                            JFrame windowChange = new JFrame();
+                                            windowChange.setSize(800, 600);
+                                            windowChange.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-                                                window1.setLayout(new GridLayout(1,2));
-                                                JPanel panel1 = new JPanel();
-                                                JPanel panel2 = new JPanel();
-                                                window1.add(panel1);
-                                                window1.add(panel2);
-                                                panel1.setLayout(new GridLayout(6,1));
+                                            windowChange.setLayout(new GridLayout(1,2));
+                                            JPanel panel1 = new JPanel();
+                                            JPanel panel2 = new JPanel();
+                                            windowChange.add(panel1);
+                                            windowChange.add(panel2);
+                                            panel1.setLayout(new GridLayout(6,1));
 
-                                                JTextField number = new JTextField(5);
+                                            JTextField number = new JTextField(5);
 
-                                                panel1.add(number);
+                                            panel1.add(number);
 
 
 
-                                                JButton buttonAdd = new JButton("CHANGE");
-                                                panel1.add(buttonAdd);
+                                            JButton buttonChange = new JButton("CHANGE");
+                                            panel1.add(buttonChange);
 
-                                                buttonAdd.addActionListener(
-                                                        new ActionListener() {
-                                                            @Override
-                                                            public void actionPerformed(ActionEvent e) {
-                                                                int num = Integer.parseInt(number.getText());
+                                            buttonChange.addActionListener(
+                                                    e131 -> {
+                                                        int num = Integer.parseInt(number.getText());
 
-                                                                Menu menu1 = new Menu();
-                                                                try {
-                                                                    menu1.changeAvailable(num);
-                                                                } catch (IOException ex) {
-                                                                    ex.printStackTrace();
-                                                                }
-
-
-                                                                window13.dispose();
-
-
-                                                            }
+                                                        Menu menu1 = new Menu();
+                                                        try {
+                                                            menu1.changeAvailable(num);
+                                                        } catch (IOException ex) {
+                                                            ex.printStackTrace();
                                                         }
-                                                );
 
+                                                        windowChange.dispose();
+                                                    }
+                                            );
 
-                                                MenuInterface menuInterface = new Menu();
-                                                String line = null;
-                                                try {
-                                                    line = menuInterface.readMenu();
-                                                } catch (FileNotFoundException ex) {
-                                                    ex.printStackTrace();
-                                                }
-
-                                                JTextArea textArea = new JTextArea();
-                                                textArea.append(line);
-                                                textArea.setEditable(false);
-                                                panel2.add(textArea);
-
-
-                                                window1.setVisible(true);
-
+                                            MenuInterface menuInterface = new Menu();
+                                            String line = null;
+                                            try {
+                                                line = menuInterface.readMenu();
+                                            } catch (FileNotFoundException ex) {
+                                                ex.printStackTrace();
                                             }
+                                            JTextArea textArea = new JTextArea();
+                                            textArea.append(line);
+                                            textArea.setEditable(false);
+                                            panel2.add(textArea);
+
+                                            windowChange.setVisible(true);
+
                                         }
                                 );
-                                button41.addActionListener(
-                                        new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                window13.dispose();
-
-                                            }
-                                        }
+                                buttonCloseMenu.addActionListener(
+                                        e14 -> window13.dispose()
                                 );
 
 
                             }
                     );
                     button3.addActionListener(
-                            new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    JFrame window = new JFrame();
-                                    window.setSize(800, 600);
-                                    window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                                    window.setLayout(new GridLayout(1,2));
+                            e -> {
+                                JFrame window1 = new JFrame();
+                                window1.setSize(800, 600);
+                                window1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                window1.setLayout(new GridLayout(1,2));
 
-                                    JPanel panel1 = new JPanel();
-                                    JPanel panel2 = new JPanel();
+                                JPanel panel1 = new JPanel();
+                                JPanel panel2 = new JPanel();
 
-                                    window.add(panel1);
-                                    window.add(panel2);
+                                window1.add(panel1);
+                                window1.add(panel2);
 
+                                panel1.setLayout(new GridLayout(6,1));
 
-//                                    JList list = new JList();
-//                                    DefaultListModel<String> model = new DefaultListModel<>();
-//
-//                                    File file = new File("menu.txt");
-//                                    Scanner scanner = null;
-//                                    try {
-//                                        scanner = new Scanner(file);
-//                                    } catch (FileNotFoundException ex) {
-//                                        ex.printStackTrace();
-//                                    }
-//                                    ArrayList<Dish> lista = new ArrayList();
-//                                    while (scanner.hasNext()){
-//                                        String line = scanner.nextLine();
-//                                        String[] strings = line.split(", ");
-//                                        lista.add(new Dish(Integer.parseInt(strings[0]),strings[1],strings[2],Integer.parseInt(strings[3]),strings[4]));
-//                                        if(strings[4].equals("yes")){
-//                                            model.addElement(line);
-//                                        }
-//
-//                                    }
-//                                    list.setModel(model);
-//                                    panel1.add(list);
+                                JTextField number = new JTextField(5);
+                                JTextField quantity = new JTextField();
+
+                                panel1.add(number);
+                                panel1.add(quantity);
+
+                                JButton buttonAdd = new JButton("ADD TO ORDER");
+                                JButton buttonIn = new JButton("ORDER ON SITE");
+                                JButton buttonOut = new JButton("ORDER TAKE-OUT");
+
+                                panel1.add(buttonAdd);
+                                panel1.add(buttonIn);
+                                panel1.add(buttonOut);
 
 
-                                    panel1.setLayout(new GridLayout(6,1));
+                                buttonAdd.addActionListener(
+                                        e15 -> {
 
-                                    JTextField number = new JTextField(5);
-                                    JTextField quantity = new JTextField();
+                                            int n  = Integer.parseInt(number.getText());
+                                            int q = Integer.parseInt(quantity.getText());
 
-                                    panel1.add(number);
-                                    panel1.add(quantity);
+                                            quantityList.add(q);
+                                            summaryList.add(n);
+                                            dishMap.put(n,q);
 
+                                        }
+                                );
+                                buttonIn.addActionListener(
+                                        e16 -> {
 
+                                            int orderNumber = order.setNumber();
 
-                                    JButton buttonAdd = new JButton("ADD TO ORDER");
-                                    JButton buttonIn = new JButton("ORDER ON SITE");
-                                    JButton buttonOut = new JButton("ORDER TAKE-OUT");
-
-                                    panel1.add(buttonAdd);
-                                    panel1.add(buttonIn);
-                                    panel1.add(buttonOut);
-
-
-
-
-
-
-                                    ArrayList<Order> orderList = new ArrayList();
-
-                                    buttonAdd.addActionListener(
-                                            new ActionListener() {
-                                                @Override
-                                                public void actionPerformed(ActionEvent e) {
-                                                    int sum = 0;
-
-
-
-                                                    int n  = Integer.parseInt(number.getText());
-                                                    int q = Integer.parseInt(quantity.getText());
-
-                                                    quantityList.add(q);
-                                                    summaryList.add(n);
-
-
-
-                                                    dishMap.put(n,q);
-                                                    System.out.println(sum);
-
-
-
-
-                                                }
+                                            try {
+                                                order.addToOrder(orderNumber,dishMap,1);
+                                            } catch (IOException ex) {
+                                                ex.printStackTrace();
                                             }
-                                    );
-                                    buttonIn.addActionListener(
-                                            new ActionListener() {
-                                                @Override
-                                                public void actionPerformed(ActionEvent e) {
 
-                                                    int orderNumber = order.setNumber();
-                                                    try {
-                                                        order.addToOrder(orderNumber,dishMap,1);
-                                                    } catch (IOException ex) {
-                                                        ex.printStackTrace();
-                                                    }
+                                            order.orderMainList.add(new OrderDescription(orderNumber,dishMap,1, order.total(summaryList,quantityList)));
+                                            totalSum.add(order.total(summaryList,quantityList));
 
 
+                                            for (int i = 0; i < summaryList.size(); i++) {
 
+                                                summaryList.remove(i);
+                                                quantityList.remove(i);
 
-
-                                                    order.orderMainList.add(new OrderDescription(orderNumber,dishMap,1, order.total(summaryList,quantityList)));
-                                                    totalSum.add(order.total(summaryList,quantityList));
-                                                    for (int i = 0; i < summaryList.size(); i++) {
-                                                        summaryList.remove(i);
-                                                        quantityList.remove(i);
-
-                                                    }
-
-
-                                                    System.out.println(order.orderMainList);
-
-                                                }
                                             }
-                                    );
-                                    buttonOut.addActionListener(
-                                            new ActionListener() {
-                                                @Override
-                                                public void actionPerformed(ActionEvent e) {
 
-                                                    int orderNumber = order.setNumber();
-                                                    try {
-                                                        order.addToOrder(orderNumber,dishMap,0);
-                                                    } catch (IOException ex) {
-                                                        ex.printStackTrace();
-                                                    }
-                                                    order.orderMainList.add(new OrderDescription(orderNumber,dishMap,0, order.total(summaryList,quantityList)));
-                                                    totalSum.add(order.total(summaryList,quantityList));
-                                                    for (int i = 0; i < summaryList.size(); i++) {
-                                                        summaryList.remove(i);
-                                                        quantityList.remove(i);
+                                            System.out.println(order.orderMainList);
+                                        }
+                                );
 
-                                                    }
+                                buttonOut.addActionListener(
+                                        e17 -> {
 
+                                            int orderNumber = order.setNumber();
 
-
-                                                    System.out.println(order.orderMainList);
-
-                                                }
+                                            try {
+                                                order.addToOrder(orderNumber,dishMap,0);
+                                            } catch (IOException ex) {
+                                                ex.printStackTrace();
                                             }
-                                    );
+
+                                            order.orderMainList.add(new OrderDescription(orderNumber,dishMap,0, order.total(summaryList,quantityList)));
+                                            totalSum.add(order.total(summaryList,quantityList));
 
 
-                                    MenuInterface menuInterface = new Menu();
-                                    String line = null;
-                                    try {
-                                        line = menuInterface.readMenu();
-                                    } catch (FileNotFoundException ex) {
-                                        ex.printStackTrace();
-                                    }
+                                            for (int i = 0; i < summaryList.size(); i++) {
 
-                                    JTextArea textArea = new JTextArea();
-                                    textArea.append(line);
-                                    textArea.setEditable(false);
-                                    panel2.add(textArea);
+                                                summaryList.remove(i);
+                                                quantityList.remove(i);
 
+                                            }
 
+                                            System.out.println(order.orderMainList);
+                                        }
+                                );
 
-
-
-
-
-
-
-                                    window.setVisible(true);
-
+                                MenuInterface menuInterface = new Menu();
+                                String line = null;
+                                try {
+                                    line = menuInterface.readMenu();
+                                } catch (FileNotFoundException ex) {
+                                    ex.printStackTrace();
                                 }
+                                JTextArea textArea = new JTextArea();
+                                textArea.append(line);
+                                textArea.setEditable(false);
+                                panel2.add(textArea);
+
+                                window1.setVisible(true);
                             }
                     );
+
                     button4.addActionListener(
-                            new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    JFrame window = new JFrame();
-                                    window.setSize(800, 600);
-                                    window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                            e -> {
+                                JFrame window14 = new JFrame();
+                                window14.setSize(800, 600);
+                                window14.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+                                Order order1 = new Order();
+                                String line = null;
 
-                                    Order order = new Order();
-                                    String line = null;
-                                    try {
-                                        line = order.readOrder();
-                                    } catch (FileNotFoundException ex) {
-                                        ex.printStackTrace();
-                                    }
-
-                                    JTextArea textArea = new JTextArea();
-                                    textArea.append(line);
-                                    textArea.setEditable(false);
-                                    window.add(textArea);
-
-
-                                    window.setVisible(true);
-
+                                try {
+                                    line = order1.readOrder();
+                                } catch (FileNotFoundException ex) {
+                                    ex.printStackTrace();
                                 }
+
+                                JTextArea textArea = new JTextArea();
+                                textArea.append(line);
+                                textArea.setEditable(false);
+                                window14.add(textArea);
+
+                                window14.setVisible(true);
+
                             }
                     );
                     button5.addActionListener(
-                            new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    JFrame window = new JFrame();
-                                    window.setSize(800, 600);
-                                    window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                            e -> {
+                                JFrame window15 = new JFrame();
+                                window15.setSize(800, 600);
+                                window15.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-                                    Summary summary = new Summary();
-                                    int line = 0;
-                                    try {
-                                        line = summary.sum(totalSum);
-                                    } catch (IOException ex) {
-                                        ex.printStackTrace();
-                                    }
-                                    //line = order.total(summaryList);
-
-                                    JTextArea textArea = new JTextArea();
-                                    textArea.append(String.valueOf(line));
-                                    textArea.setEditable(false);
-                                    window.add(textArea);
-
-
-
-                                    window.setVisible(true);
-
+                                Summary summary1 = new Summary();
+                                int line = 0;
+                                try {
+                                    line = summary1.sum(totalSum);
+                                } catch (IOException ex) {
+                                    ex.printStackTrace();
                                 }
+
+                                JTextArea textArea = new JTextArea();
+                                textArea.append(String.valueOf(line));
+                                textArea.setEditable(false);
+                                window15.add(textArea);
+
+                                window15.setVisible(true);
+
                             }
                     );
                     button6.addActionListener(
-                            new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    JFrame window = new JFrame();
-                                    window.setSize(800, 600);
-                                    window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                                    window.setVisible(true);
+                            e -> {
+                                JFrame window16 = new JFrame();
+                                window16.setSize(800, 600);
+                                window16.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                window16.setVisible(true);
 
-                                }
                             }
                     );
 
