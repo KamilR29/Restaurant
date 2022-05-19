@@ -6,8 +6,8 @@ import java.io.IOException;
 public class Cook extends Employee{
 
 
-    public Cook(String name, String surname, String work, int id) {
-        super(name, surname, work, id);
+    public Cook(int id,String name, String surname, String work) {
+        super(id,name, surname, work);
     }
 
     @Override

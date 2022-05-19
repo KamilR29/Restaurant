@@ -13,6 +13,7 @@ public class Order  {
 
      public  ArrayList<OrderDescription> orderMainList = new ArrayList<>();
      Menu menu = new Menu();
+     public HashMap<Integer,Integer> dishMap = new HashMap<Integer,Integer>();
 
 
     public int setNumber(){
@@ -59,11 +60,11 @@ public class Order  {
 //        }
 //        return io;
 //    }
-    public void addToOrder(int orderNumber, Map<Integer,Integer> dishMap, int inOut ) throws IOException {
+    public void addToOrder(int orderNumber, Map<Integer,Integer> dishMap, int inOut, int total ) throws IOException {
 
         FileWriter file = new FileWriter("order.txt", true);
         BufferedWriter bufferedWriter = new BufferedWriter(file);
-        bufferedWriter.write(orderNumber+"/ "+dishMap+"/ "+ inOut);
+        bufferedWriter.write(orderNumber+"/ "+dishMap+"/ "+ inOut+"/ "+total);
         bufferedWriter.newLine();
         bufferedWriter.close();
 
@@ -86,43 +87,9 @@ public class Order  {
 
 
     }
-    public void deleteFromOrder() throws IOException {
-        File file = new File("order.txt");
-        Scanner scanner = new Scanner(file);
-        ArrayList<OrderDescription> list = new ArrayList();
-        while (scanner.hasNext()){
-            String line = scanner.nextLine();
-            String[] strings = line.split("/ ");
-            HashMap<Integer, Integer> map = new HashMap<>();
-            String[] strings1 = strings[1].split(",");
-            for (int i = 0; i < strings1.length; i+=2) {
-                map.put(Integer.parseInt(strings1[i]),Integer.parseInt(strings[i+1]));
-
-            }
-
-            //list.add(new OrderDescription(Integer.parseInt(strings[0]), map, Integer.parseInt(strings[2])));
-
-        }
-        //System.out.println("Podaj ID dania do skasowania: ");
-        // Scanner scanner1 = new Scanner(System.in);
-        //int delete = scanner1.nextInt();
 
 
-        PrintWriter printWriter = new PrintWriter("order.txt");
-        printWriter.print("");
-        printWriter.close();
-        FileWriter file1 = new FileWriter("order.txt", true);
-        BufferedWriter bufferedWriter = new BufferedWriter(file1);
 
-        for (int i = 1; i < list.size(); i++) {
-
-                bufferedWriter.write(list.get(i).getOrderNumber() + ", " + list.get(i).getDishes() + ", " + list.get(i).getInOut());
-                bufferedWriter.newLine();
-
-        }
-        bufferedWriter.close();
-
-    }
     public void addToDone(ArrayList<OrderDescription>list) throws IOException {
 
         FileWriter file = new FileWriter("done.txt", true);
@@ -169,8 +136,7 @@ public class Order  {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-       // System.out.println(list.size());
-       // System.out.println(summaryList.size());
+
         for (int i = 0; i <summaryList.size() ; i++) {
             for (int j = 0; j < list.size(); j++) {
                 if (list.get(j).getNumber() == Integer.parseInt(String.valueOf(summaryList.get(i)))) {
@@ -178,7 +144,7 @@ public class Order  {
                     System.out.println(list.get(j).getNumber());
                     System.out.println(summaryList.get(i));
 
-                    //System.out.println(sum);
+
                 }
 
             }
@@ -187,7 +153,22 @@ public class Order  {
         return sum;
 
     }
+    public String readDone() throws FileNotFoundException {
 
+        String all = "";
+        File file = new File("done.txt");
+        Scanner scanner = new Scanner(file);
+
+        while (scanner.hasNext()){
+            String line = scanner.nextLine();
+            all += line+"\n";
+        }
+        System.out.println(all);
+
+        return all;
+
+
+    }
 
 
 }

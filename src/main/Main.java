@@ -8,11 +8,13 @@ import order.Delete;
 import order.Order;
 import order.OrderDescription;
 import summary.Summary;
+import team.Delivery;
+import team.Employee;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
@@ -26,11 +28,16 @@ public class Main {
         Summary summary = new Summary();
         Menu menu = new Menu();
         Delete delete = new Delete();
+        Delivery delivery = new Delivery();
 
-        HashMap<Integer,Integer> dishMap = new HashMap<Integer,Integer>();
+
         ArrayList summaryList = new ArrayList();
         ArrayList totalSum = new ArrayList();
         ArrayList quantityList = new ArrayList();
+        ArrayList<OrderDescription> orderMainList1 = new ArrayList<>();
+
+
+
 
 
 
@@ -57,15 +64,6 @@ public class Main {
                     JButton button6 = new JButton("Workers");
 
 
-                    Color color = new Color(237, 140, 222);
-                    button1.setBackground(color);
-                    button2.setBackground(color);
-                    button3.setBackground(color);
-                    button4.setBackground(color);
-                    button5.setBackground(color);
-                    button6.setBackground(color);
-
-
                     window.add(button1);
                     window.add(button2);
                     window.add(button3);
@@ -79,6 +77,9 @@ public class Main {
                                 JFrame window12 = new JFrame();
                                 window12.setSize(800, 600);
                                 window12.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                window12.setLayout(new GridLayout(2,1));
+                                JLabel label = new JLabel("Maenu", SwingConstants.CENTER);
+                                window12.add(label);
 
                                 MenuInterface menuInterface = new Menu();
                                 String line = null;
@@ -293,6 +294,8 @@ public class Main {
                     );
                     button3.addActionListener(
                             e -> {
+                                HashMap<Integer,Integer> dishMap = new HashMap<>();
+
                                 JFrame window1 = new JFrame();
                                 window1.setSize(800, 600);
                                 window1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -315,10 +318,12 @@ public class Main {
                                 JButton buttonAdd = new JButton("ADD TO ORDER");
                                 JButton buttonIn = new JButton("ORDER ON SITE");
                                 JButton buttonOut = new JButton("ORDER TAKE-OUT");
+                                JButton buttonLos = new JButton("RANDOM ORDER");
 
                                 panel1.add(buttonAdd);
                                 panel1.add(buttonIn);
                                 panel1.add(buttonOut);
+                                panel1.add(buttonLos);
 
 
                                 buttonAdd.addActionListener(
@@ -327,8 +332,10 @@ public class Main {
                                             int n  = Integer.parseInt(number.getText());
                                             int q = Integer.parseInt(quantity.getText());
 
+
                                             quantityList.add(q);
                                             summaryList.add(n);
+
                                             dishMap.put(n,q);
 
                                         }
@@ -338,8 +345,9 @@ public class Main {
 
                                             int orderNumber = order.setNumber();
 
+
                                             try {
-                                                order.addToOrder(orderNumber,dishMap,1);
+                                                order.addToOrder(orderNumber,dishMap,1,order.total(summaryList,quantityList));
                                             } catch (IOException ex) {
                                                 ex.printStackTrace();
                                             }
@@ -348,30 +356,114 @@ public class Main {
                                             totalSum.add(order.total(summaryList,quantityList));
 
 
+
+
+
+
+
                                             for (int i = 0; i < summaryList.size(); i++) {
 
                                                 summaryList.remove(i);
                                                 quantityList.remove(i);
 
                                             }
+                                            for (int i = 0; i < dishMap.size(); i++) {
+                                                dishMap.remove(dishMap.get(i));
+
+                                            }
+
 
                                             System.out.println(order.orderMainList);
+
+                                            window1.dispose();
+
                                         }
                                 );
 
                                 buttonOut.addActionListener(
                                         e17 -> {
 
+
+
+
                                             int orderNumber = order.setNumber();
 
                                             try {
-                                                order.addToOrder(orderNumber,dishMap,0);
+                                                order.addToOrder(orderNumber,dishMap,0,order.total(summaryList,quantityList));
                                             } catch (IOException ex) {
                                                 ex.printStackTrace();
                                             }
 
-                                            order.orderMainList.add(new OrderDescription(orderNumber,dishMap,0, order.total(summaryList,quantityList)));
+                                            order.orderMainList.add( new OrderDescription(orderNumber,dishMap,0, order.total(summaryList,quantityList)));
                                             totalSum.add(order.total(summaryList,quantityList));
+                                            delivery.deliveryList.add(orderNumber);
+
+
+
+
+
+
+                                            for (int i = 0; i < summaryList.size(); i++) {
+
+                                                summaryList.remove(i);
+                                                quantityList.remove(i);
+
+                                            }
+                                            for (int i = 0; i < dishMap.size(); i++) {
+                                                dishMap.remove(dishMap.get(i));
+
+                                            }
+
+
+                                            System.out.println(order.orderMainList);
+
+                                            window1.dispose();
+                                        }
+                                );
+                                buttonLos.addActionListener(
+                                        e1 -> {
+                                            HashMap map = new HashMap();
+                                            ArrayList list1 = new ArrayList();
+                                            ArrayList list2 = new ArrayList();
+                                            File file = new File("menu.txt");
+                                            Scanner scanner = null;
+                                            try {
+                                                scanner = new Scanner(file);
+                                            } catch (FileNotFoundException ex) {
+                                                ex.printStackTrace();
+                                            }
+                                            ArrayList list = new ArrayList();
+
+                                            while (scanner.hasNext()){
+                                                String line = scanner.nextLine();
+                                                String[] strings = line.split(", ");
+                                                list.add(Integer.parseInt(strings[0]));
+                                            }
+
+                                            Random random = new Random();
+                                            int r = random.nextInt(list.size())+1;
+
+                                            for (int i = 0; i < r; i++) {
+                                                map.put(list.get(i),1);
+                                                list1.add(list.get(i));
+                                                list2.add(1);
+
+
+                                            }
+                                            int n = random.nextInt(2);
+
+
+                                            int orderNumber = order.setNumber();
+
+                                            try {
+                                                order.addToOrder(orderNumber,map,n,order.total(list1,list2));
+                                            } catch (IOException ex) {
+                                                ex.printStackTrace();
+                                            }
+
+                                            order.orderMainList.add( new OrderDescription(orderNumber,map,n, order.total(summaryList,quantityList)));
+                                            totalSum.add(order.total(list1,list2));
+                                            delivery.deliveryList.add(orderNumber);
 
 
                                             for (int i = 0; i < summaryList.size(); i++) {
@@ -382,6 +474,11 @@ public class Main {
                                             }
 
                                             System.out.println(order.orderMainList);
+
+                                            window1.dispose();
+
+
+
                                         }
                                 );
 
@@ -406,6 +503,21 @@ public class Main {
                                 JFrame window14 = new JFrame();
                                 window14.setSize(800, 600);
                                 window14.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                window14.setLayout(new GridLayout(1,2));
+
+                                JPanel panel1 = new JPanel();
+                                JPanel panel2 = new JPanel();
+                                panel1.setLayout(new GridLayout(2,1));
+                                panel2.setLayout(new GridLayout(2,1));
+                                JLabel labelWaiting = new JLabel("Waiting", SwingConstants.CENTER);
+                                Border b1 = BorderFactory.createLineBorder(Color.black);
+                                JLabel labelDone = new JLabel("Done", SwingConstants.CENTER);
+                                panel1.add(labelWaiting);
+                                panel2.add(labelDone);
+                                window14.add(panel1);
+                                window14.add(panel2);
+                                panel1.setBorder(b1);
+                                panel2.setBorder(b1);
 
                                 Order order1 = new Order();
                                 String line = null;
@@ -419,7 +531,21 @@ public class Main {
                                 JTextArea textArea = new JTextArea();
                                 textArea.append(line);
                                 textArea.setEditable(false);
-                                window14.add(textArea);
+                                panel1.add(textArea);
+
+
+                                String line1 = null;
+
+                                try {
+                                    line1 = order1.readDone();
+                                } catch (FileNotFoundException ex) {
+                                    ex.printStackTrace();
+                                }
+
+                                JTextArea textArea1 = new JTextArea();
+                                textArea1.append(line1);
+                                textArea1.setEditable(false);
+                                panel2.add(textArea1);
 
                                 window14.setVisible(true);
 
@@ -430,6 +556,24 @@ public class Main {
                                 JFrame window15 = new JFrame();
                                 window15.setSize(800, 600);
                                 window15.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                window15.setLayout(new GridLayout(1,2));
+                                Border b1 = BorderFactory.createLineBorder(Color.black);
+
+                                JPanel panel1 = new JPanel();
+                                JPanel panel2 = new JPanel();
+
+                                panel1.setLayout(new GridLayout(2,1));
+                                panel2.setLayout(new GridLayout(2,1));
+                                window15.add(panel1);
+                                window15.add(panel2);
+                                JLabel label1 = new JLabel("Total",SwingConstants.CENTER);
+                                JLabel label2 = new JLabel("Tip",SwingConstants.CENTER);
+                                panel1.add(label1);
+                                panel2.add(label2);
+                                JTextArea textArea2 = new JTextArea();
+                                panel1.setBorder(b1);
+                                panel2.setBorder(b1);
+
 
                                 Summary summary1 = new Summary();
                                 int line = 0;
@@ -439,10 +583,21 @@ public class Main {
                                     ex.printStackTrace();
                                 }
 
+                                int line1 = 0;
+                                try {
+                                    line1= (int) summary1.tip(totalSum);
+                                } catch (IOException ex) {
+                                    ex.printStackTrace();
+                                }
+
+
                                 JTextArea textArea = new JTextArea();
                                 textArea.append(String.valueOf(line));
                                 textArea.setEditable(false);
-                                window15.add(textArea);
+                                panel1.add(textArea);
+                                textArea2.append(String.valueOf(line1));
+                                textArea2.setEditable(false);
+                                panel2.add(textArea2);
 
                                 window15.setVisible(true);
 
@@ -450,21 +605,169 @@ public class Main {
                     );
                     button6.addActionListener(
                             e -> {
-                                JFrame window16 = new JFrame();
-                                window16.setSize(800, 600);
-                                window16.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                                window16.setVisible(true);
+                                JFrame windowEmployee = new JFrame();
+                                windowEmployee.setSize(800, 600);
+                                windowEmployee.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                windowEmployee.setLayout(new GridLayout(1,2));
+
+                                JButton buttonToAdd = new JButton("ADD WORKER");
+                                JButton buttonToDelete = new JButton("DELETE WORKER");
+
+                                windowEmployee.add(buttonToAdd);
+                                windowEmployee.add(buttonToDelete);
+
+
+                                buttonToAdd.addActionListener(
+                                        e1 -> {
+                                            JFrame windowToAdd = new JFrame();
+                                            windowToAdd.setSize(800, 600);
+                                            windowToAdd.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                            windowToAdd.setLayout(new GridLayout(1,2));
+
+                                            JPanel panel1 = new JPanel();
+                                            JPanel panel2 = new JPanel();
+                                            panel1.setLayout(new GridLayout(6,1));
+                                            windowToAdd.add(panel1);
+                                            windowToAdd.add(panel2);
+
+                                            Employee employee = new Employee();
+
+                                            JTextField txt1 = new JTextField();
+                                            JTextField txt2 = new JTextField();
+                                            JTextField txt3 = new JTextField();
+                                            JTextField txt4 = new JTextField();
+
+                                            JTextArea textArea = new JTextArea();
+                                            panel2.add(textArea);
+
+
+
+                                            JButton addWorker = new JButton("ADD");
+                                            panel1.add(txt1);
+                                            panel1.add(txt2);
+                                            panel1.add(txt3);
+                                            panel1.add(txt4);
+                                            panel1.add(addWorker);
+
+
+
+
+                                            addWorker.addActionListener(
+                                                    e2 -> {
+                                                        int id = Integer.parseInt(txt1.getText());
+                                                        String name = txt2.getText();
+                                                        String surname = txt3.getText();
+                                                        String work = txt4.getText();
+
+                                                        try {
+                                                            employee.addEmployee(new Employee(id, name, surname, work));
+                                                        } catch (IOException ex) {
+                                                            ex.printStackTrace();
+
+                                                        }
+
+                                                        windowToAdd.dispose();
+
+
+
+
+
+                                                    }
+                                            );
+                                            String line = null;
+                                            try {
+                                                line = employee.readEmployee();
+                                            } catch (FileNotFoundException ex) {
+                                                ex.printStackTrace();
+                                            }
+
+
+                                            textArea.append(line);
+                                            textArea.setEditable(false);
+
+                                            windowToAdd.setVisible(true);
+
+
+
+                                        }
+                                );
+                                buttonToDelete.addActionListener(
+
+                                        e3 -> {
+                                            Employee employee = new Employee();
+                                            JFrame windowToDelete = new JFrame();
+                                            windowToDelete.setSize(800, 600);
+                                            windowToDelete.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                            windowToDelete.setLayout(new GridLayout(1,2));
+
+                                            JPanel panel1 = new JPanel();
+                                            JPanel panel2 = new JPanel();
+                                            windowToDelete.add(panel1);
+                                            windowToDelete.add(panel2);
+                                            panel1.setLayout(new GridLayout(6,1));
+                                            JTextField idFiled = new JTextField();
+                                            panel1.add(idFiled);
+                                            JButton buttonDelete = new JButton("DELETE");
+                                            panel1.add(buttonDelete);
+                                            JTextArea textArea = new JTextArea();
+                                            panel2.add(textArea);
+
+                                            buttonDelete.addActionListener(
+                                                    e4 ->{
+
+                                                        int id = Integer.parseInt(idFiled.getText());
+
+
+                                                        try {
+                                                            employee.deleteEmployee(id);
+                                                        } catch (IOException ex) {
+                                                            ex.printStackTrace();
+
+                                                        }
+                                                        windowToDelete.dispose();
+
+                                                    }
+                                            );
+                                            String line = null;
+                                            try {
+                                                line = employee.readEmployee();
+                                            } catch (FileNotFoundException ex) {
+                                                ex.printStackTrace();
+                                            }
+
+
+                                            textArea.append(line);
+                                            textArea.setEditable(false);
+                                            windowToDelete.setVisible(true);
+
+
+                                        }
+                                );
+
+
+
+
+
+                                windowEmployee.setVisible(true);
 
                             }
                     );
+
+
 
 
                     window.setVisible(true);
                 }
         );
 
+
+
         Kitchen kitchen = new Kitchen(order.orderMainList);
-        kitchen.run();
+        kitchen.start();
+        delivery.start();
+
+
+
 
 
     }

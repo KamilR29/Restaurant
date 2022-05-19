@@ -6,7 +6,7 @@ import order.OrderDescription;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Kitchen implements Runnable{
+public class Kitchen extends Thread{
 
     Order order = new Order();
     ArrayList<OrderDescription> list;

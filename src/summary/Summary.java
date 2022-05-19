@@ -30,23 +30,21 @@ public class Summary {
 
 
     }
+    public double tip(ArrayList totalSum) throws IOException {
 
+        double tip = 0;
+
+        for (int i = 0; i < totalSum.size(); i++) {
+            tip+=(Integer.parseInt(String.valueOf(totalSum.get(i)))*0.1);
+            System.out.println(tip);
+
+        }
+
+        return tip;
+
+
+
+
+    }
 }
-//    public int sumDish(ArrayList<> summaryList) throws IOException {
-//
-//        int sum = 0;
-//
-//        for (int i = 0; i < summaryList.size(); i++) {
-//            sum+=summaryList.get(i).getTotal();
-//            System.out.println(sum);
-//
-//        }
-//        System.out.println(sum);
-//        return sum;
-//
-//
-//
-//
-//    }
-//
-//}
+
