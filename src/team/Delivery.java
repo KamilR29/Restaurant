@@ -1,9 +1,6 @@
 package team;
 
-import order.Order;
-import order.OrderDescription;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Delivery extends Thread{

@@ -24,9 +24,9 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         Order order = new Order();
-        OrderDescription orderDescription = new OrderDescription();
-        Summary summary = new Summary();
-        Menu menu = new Menu();
+//        OrderDescription orderDescription = new OrderDescription();
+//        Summary summary = new Summary();
+//        Menu menu = new Menu();
         Delete delete = new Delete();
         Delivery delivery = new Delivery();
 
@@ -34,7 +34,7 @@ public class Main {
         ArrayList summaryList = new ArrayList();
         ArrayList totalSum = new ArrayList();
         ArrayList quantityList = new ArrayList();
-        ArrayList<OrderDescription> orderMainList1 = new ArrayList<>();
+        //ArrayList<OrderDescription> orderMainList1 = new ArrayList<>();
 
 
 

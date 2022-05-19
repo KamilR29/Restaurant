@@ -39,6 +39,7 @@ public class Summary {
             System.out.println(tip);
 
         }
+        totalSum.stream().forEach(k -> System.out.println("napiwek z:"+k));
 
         return tip;
 
